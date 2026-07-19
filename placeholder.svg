@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="38%" r="70%">
+      <stop offset="0%" stop-color="#3a3a3a"/>
+      <stop offset="55%" stop-color="#1c1c1c"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </radialGradient>
+    <linearGradient id="face" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8c3a5"/>
+      <stop offset="100%" stop-color="#b89b7a"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="url(#g)"/>
+  <!-- simple abstracted "portrait" silhouette so the crumple effect has something to distort -->
+  <ellipse cx="240" cy="230" rx="95" ry="115" fill="url(#face)"/>
+  <path d="M 120 480 Q 240 300 360 480 Z" fill="#2b2b2b"/>
+  <ellipse cx="205" cy="215" rx="8" ry="10" fill="#2a2118"/>
+  <ellipse cx="275" cy="215" rx="8" ry="10" fill="#2a2118"/>
+  <path d="M 210 270 Q 240 285 270 270" stroke="#2a2118" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <text x="240" y="450" text-anchor="middle" font-family="monospace" font-size="12" fill="#5a5a5a">upload your own photo ↓</text>
+</svg>

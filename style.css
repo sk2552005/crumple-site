@@ -1,0 +1,176 @@
+:root {
+  --bg: #0a0a0a;
+  --fg: #f2f0ea;
+  --accent: #c9a35a;
+  --muted: #6b6b6b;
+  --line: #262626;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Courier New', ui-monospace, monospace;
+  overflow: hidden;
+}
+
+.stage {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hud {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  z-index: 5;
+}
+
+.hud h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.hud .dot { color: var(--accent); }
+
+.hud .sub {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+  max-width: 260px;
+  line-height: 1.5;
+}
+
+.portrait-wrap {
+  position: relative;
+  width: min(60vw, 480px);
+  height: min(60vw, 480px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: url(#crumple-filter) grayscale(0);
+  transition: filter 0.05s linear;
+  will-change: filter;
+  background: #111;
+}
+
+.upload-btn {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+
+.upload-btn:hover {
+  color: var(--fg);
+  border-color: var(--accent);
+}
+
+.cam-pip {
+  position: fixed;
+  top: 32px;
+  right: 32px;
+  width: 168px;
+  height: 224px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #111;
+  border: 1px solid var(--line);
+  z-index: 5;
+}
+
+.cam-pip video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+
+.cam-pip canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(-1);
+}
+
+.cam-status {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  text-align: center;
+  background: rgba(0,0,0,0.5);
+  border-radius: 4px;
+  padding: 3px 0;
+}
+
+.readout {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(60vw, 480px);
+  z-index: 5;
+}
+
+.readout-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+}
+
+.bar {
+  flex: 1;
+  height: 3px;
+  background: var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width 0.05s linear;
+}
+
+@media (max-width: 640px) {
+  .cam-pip { width: 108px; height: 144px; top: 20px; right: 20px; }
+  .hud { top: 20px; left: 20px; }
+  .hud .sub { max-width: 180px; }
+}
