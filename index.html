@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Crumple — hand-tracked paper effect</title>
+<title>Crumple — live hand-tracked paper mesh</title>
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -12,25 +12,19 @@
 
     <header class="hud">
       <h1>crumple<span class="dot">.</span></h1>
-      <p class="sub">pinch your thumb + ring finger together in front of the camera</p>
+      <p class="sub">pinch your thumb + ring finger together — the mesh folds live, no pre-rendered video</p>
     </header>
 
-    <!-- The main portrait / image that reacts to your hand -->
+    <!-- Live WebGL mesh: your image mapped onto a triangulated plane that
+         actually deforms in real time based on your hand. -->
     <div class="portrait-wrap">
-      <svg width="0" height="0" style="position:absolute">
-        <filter id="crumple-filter" x="-20%" y="-20%" width="140%" height="140%">
-          <feTurbulence id="turb" type="fractalNoise" baseFrequency="0.00" numOctaves="2" seed="7" result="noise" />
-          <feDisplacementMap id="disp" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-      </svg>
+      <canvas id="glCanvas"></canvas>
 
-      <img id="portrait" class="portrait" src="placeholder.svg" alt="Your portrait" />
-
-      <label class="upload-btn" for="fileInput">upload your own photo</label>
-      <input type="file" id="fileInput" accept="image/*" hidden />
+      <label class="upload-btn" for="imgInput">upload your cutout photo (PNG, transparent bg works best)</label>
+      <input type="file" id="imgInput" accept="image/*" hidden />
     </div>
 
-    <!-- Webcam preview + hand skeleton, styled like a FaceTime PiP -->
+    <!-- Webcam preview + hand skeleton -->
     <div class="cam-pip">
       <video id="webcam" autoplay playsinline muted></video>
       <canvas id="overlay"></canvas>
@@ -39,14 +33,13 @@
 
     <div class="readout">
       <div class="readout-row">
-        <span>pinch amount</span>
+        <span>crumple amount</span>
         <div class="bar"><div id="crumpleBar" class="bar-fill"></div></div>
       </div>
     </div>
 
   </main>
 
-  <!-- MediaPipe Tasks Vision — free, no API key, runs entirely in the browser -->
   <script type="module" src="script.js"></script>
 </body>
 </html>
