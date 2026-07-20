@@ -1,9 +1,9 @@
 :root {
-  --bg: #0a0a0a;
-  --fg: #f2f0ea;
-  --accent: #c9a35a;
-  --muted: #6b6b6b;
-  --line: #262626;
+  --bg: #faf7f0;
+  --ink: #1a1a1a;
+  --muted: #8a8272;
+  --accent: #b8843c;
+  --line: #e6ddc8;
 }
 
 * { box-sizing: border-box; }
@@ -12,8 +12,8 @@ html, body {
   margin: 0;
   height: 100%;
   background: var(--bg);
-  color: var(--fg);
-  font-family: 'Courier New', ui-monospace, monospace;
+  color: var(--ink);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
   overflow: hidden;
 }
 
@@ -21,10 +21,6 @@ html, body {
   position: relative;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .hud {
@@ -36,138 +32,95 @@ html, body {
 
 .hud h1 {
   margin: 0;
-  font-size: 22px;
-  font-weight: 400;
-  letter-spacing: 0.02em;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .hud .dot { color: var(--accent); }
 
 .hud .sub {
   margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.hud .counter {
+  margin: 14px 0 0;
   font-size: 12px;
   color: var(--muted);
-  max-width: 260px;
-  line-height: 1.5;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
 }
 
-.portrait-wrap {
-  position: relative;
-  width: min(70vw, 560px);
-  height: min(80vh, 640px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#glCanvas {
+#physicsCanvas {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
+  z-index: 2;
+  pointer-events: none;
 }
 
-.upload-btn {
+.bottle-btn {
   position: absolute;
-  bottom: -48px;
+  bottom: 6%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 11px;
-  color: var(--muted);
-  border: 1px solid var(--line);
-  padding: 8px 14px;
-  border-radius: 999px;
+  z-index: 3;
+  background: none;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  letter-spacing: 0.03em;
-  transition: color 0.2s, border-color 0.2s;
-  white-space: nowrap;
-  text-align: center;
-  max-width: 90vw;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none;
 }
 
-.upload-btn:hover {
-  color: var(--fg);
+.bottle-btn img {
+  height: 34vh;
+  max-height: 320px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.18));
+  transform-origin: bottom center;
+  transition: transform 0.08s ease-out;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.bottle-btn.squeezing img {
+  animation: squeeze 0.9s ease-in-out infinite;
+}
+
+@keyframes squeeze {
+  0%   { transform: scaleX(1) scaleY(1); }
+  30%  { transform: scaleX(1.12) scaleY(0.9) translateY(2%); }
+  60%  { transform: scaleX(0.96) scaleY(1.03); }
+  100% { transform: scaleX(1) scaleY(1); }
+}
+
+.reset-btn {
+  position: absolute;
+  bottom: 28px;
+  right: 32px;
+  z-index: 5;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.reset-btn:hover {
+  color: var(--ink);
   border-color: var(--accent);
 }
 
-.cam-pip {
-  position: fixed;
-  top: 32px;
-  right: 32px;
-  width: 168px;
-  height: 224px;
-  border-radius: 18px;
-  overflow: hidden;
-  background: #111;
-  border: 1px solid var(--line);
-  z-index: 5;
-}
-
-.cam-pip video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scaleX(-1);
-}
-
-.cam-pip canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  transform: scaleX(-1);
-}
-
-.cam-status {
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-  right: 8px;
-  font-size: 9px;
-  color: var(--muted);
-  letter-spacing: 0.02em;
-  text-align: center;
-  background: rgba(0,0,0,0.5);
-  border-radius: 4px;
-  padding: 3px 0;
-}
-
-.readout {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(70vw, 560px);
-  z-index: 5;
-}
-
-.readout-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.03em;
-}
-
-.bar {
-  flex: 1;
-  height: 3px;
-  background: var(--line);
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.bar-fill {
-  height: 100%;
-  width: 0%;
-  background: var(--accent);
-  transition: width 0.05s linear;
-}
-
 @media (max-width: 640px) {
-  .cam-pip { width: 108px; height: 144px; top: 20px; right: 20px; }
   .hud { top: 20px; left: 20px; }
-  .hud .sub { max-width: 180px; }
+  .bottle-btn img { height: 28vh; }
 }
