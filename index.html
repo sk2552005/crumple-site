@@ -3,43 +3,28 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Crumple — live hand-tracked paper mesh</title>
+<title>Pastilak — Squeeze & Spill</title>
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <main class="stage">
-
     <header class="hud">
-      <h1>crumple<span class="dot">.</span></h1>
-      <p class="sub">pinch your thumb + ring finger together — the mesh folds live, no pre-rendered video</p>
+      <h1>squeeze it<span class="dot">.</span></h1>
+      <p class="sub">press and hold the bottle</p>
+      <p class="counter">gummies spilled: <span id="count">0</span></p>
     </header>
 
-    <!-- Live WebGL mesh: your image mapped onto a triangulated plane that
-         actually deforms in real time based on your hand. -->
-    <div class="portrait-wrap">
-      <canvas id="glCanvas"></canvas>
+    <canvas id="physicsCanvas"></canvas>
 
-      <label class="upload-btn" for="imgInput">upload your cutout photo (PNG, transparent bg works best)</label>
-      <input type="file" id="imgInput" accept="image/*" hidden />
-    </div>
+    <button id="bottleBtn" class="bottle-btn" aria-label="Squeeze the bottle">
+      <img id="bottleImg" src="assets/bottle.png" alt="Pastilak Saffron Gummies bottle" />
+    </button>
 
-    <!-- Webcam preview + hand skeleton -->
-    <div class="cam-pip">
-      <video id="webcam" autoplay playsinline muted></video>
-      <canvas id="overlay"></canvas>
-      <div id="camStatus" class="cam-status">starting camera…</div>
-    </div>
-
-    <div class="readout">
-      <div class="readout-row">
-        <span>crumple amount</span>
-        <div class="bar"><div id="crumpleBar" class="bar-fill"></div></div>
-      </div>
-    </div>
-
+    <button id="resetBtn" class="reset-btn">tidy up</button>
   </main>
 
-  <script type="module" src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/matter-js@0.19.0/build/matter.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
